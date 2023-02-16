@@ -3,7 +3,8 @@
     <v-row>
       <v-col cols="10">
         <v-autocomplete label="Products" :loading="isLoading" placeholder="Start typing to search"
-          :search-input.sync="search">
+          :search-input.sync="search" :items="itemsSearch"
+          item-text="title" item-value="id">
         </v-autocomplete>
       </v-col>
       <v-col cols="2">
@@ -82,7 +83,8 @@ export default ({
         { id: 15, title: 'Sharp Led TV 32LE265i', thumbnail: 'sharp-32-led-32LE265i.png', price: 2300000, categoryId: 3 },
       ],
       search: null,
-      isLoading: false
+      isLoading: false,
+      itemsSearch: []
     }
   },
   computed: {
@@ -99,6 +101,9 @@ export default ({
       this.isLoading = true;
       setTimeout(() => {
         this.isLoading = false;
+        this.itemsSearch = this.products.filter(s => {
+          return s.title;
+        });
       }, 1000)
     }
   }
