@@ -88,6 +88,11 @@ export default ({
       selectedSearch: null
     }
   },
+  methods: {
+    resetSearchCategory() {
+      this.categoryId = false;
+    }
+  },
   computed: {
     filteredProduct() {
       if (this.categoryId) {
@@ -100,10 +105,9 @@ export default ({
   },
   watch: {
     search(val) {
-      console.log(val);
-      this.isLoading = true;
       setTimeout(() => {
         this.isLoading = false;
+        this.resetSearchCategory();
         this.itemsSearch = this.products.filter(s => {
           return s.title;
         });
