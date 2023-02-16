@@ -1,7 +1,12 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="10">SEARCH</v-col>
+      <v-col cols="10">
+        <v-autocomplete
+        label="Products" placeholder="Start typing to search">
+
+        </v-autocomplete>
+      </v-col>
       <v-col cols="2">
         <v-menu>
           <template v-slot:activator="{ on: category }">
