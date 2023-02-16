@@ -4,7 +4,7 @@
       <v-col cols="10">
         <v-autocomplete label="Products" :loading="isLoading" placeholder="Start typing to search"
           :search-input.sync="search" :items="itemsSearch" item-text="title" item-value="id" v-model="selectedSearch"
-          return-object>
+          return-object hide-no-data>
         </v-autocomplete>
       </v-col>
       <v-col cols="2">
