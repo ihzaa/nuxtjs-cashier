@@ -3,8 +3,8 @@
     <v-row>
       <v-col cols="10">
         <v-autocomplete label="Products" :loading="isLoading" placeholder="Start typing to search"
-          :search-input.sync="search" :items="itemsSearch"
-          item-text="title" item-value="id">
+          :search-input.sync="search" :items="itemsSearch" item-text="title" item-value="id" v-model="selectedSearch"
+          return-object>
         </v-autocomplete>
       </v-col>
       <v-col cols="2">
@@ -84,13 +84,16 @@ export default ({
       ],
       search: null,
       isLoading: false,
-      itemsSearch: []
+      itemsSearch: [],
+      selectedSearch: null
     }
   },
   computed: {
     filteredProduct() {
       if (this.categoryId) {
         return this.products.filter(s => s.categoryId == this.categoryId);
+      } else if (this.selectedSearch) {
+        return this.products.filter(s => s.id == this.selectedSearch.id);
       }
       return this.products;
     }
