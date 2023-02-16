@@ -3,10 +3,10 @@
     <v-col cols="8" class="frame-content">
       <products></products>
     </v-col>
-    <v-col cols="4">
+    <v-col cols="4" class="white">
       ORDERS
     </v-col>
-  </v-row>
+</v-row>
 </template>
 
 <script>
@@ -16,8 +16,4 @@ export default {
 </script>
 
 <style scoped>
-.frame-content {
-    height: 90vh;
-    overflow-y: auto;
-  }
 </style>

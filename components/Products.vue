@@ -10,7 +10,7 @@
         </v-card-text>
       </v-card>
     </v-col>
-  </v-row>
+</v-row>
 </template>
 
 <script>
@@ -49,6 +49,14 @@ export default ({
         { id: 14, title: 'Galaxy Note 3', thumbnail: 'samsung-galaxy-note-3.png', price: 4100000, categoryId: 1 },
 
       ]
+    }
+  },
+  computed: {
+    filteredProduct() {
+      if (this.categoryId) {
+        return this.products.filter(s => s.categoryId == this.categoryId);
+      }
+      return this.products;
     }
   }
 })
