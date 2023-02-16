@@ -11,7 +11,8 @@
           </template>
           <v-list>
             <v-list-item-group v-model="categoryId">
-              <v-list-item v-for="(category, index) in categories" :value="category.id">
+              <v-list-item v-for="(category, index) in categories" :value="category.id"
+                :disabled="category.id == categoryId">
                 <v-list-item-title>
                   {{ category.title }}
                 </v-list-item-title>
