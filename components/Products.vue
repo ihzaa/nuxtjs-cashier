@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-row>
+    <v-row align="center">
       <v-col cols="10">
         <v-autocomplete label="Products" :loading="isLoading" placeholder="Start typing to search"
           :search-input.sync="search" :items="itemsSearch" item-text="title" item-value="id" v-model="selectedSearch"
