@@ -34,4 +34,11 @@ export const state = () => ({
       title: 'TV',
     },
   ],
+  categoryId: 0,
 })
+
+export const mutations = {
+  updateCategoryId(state, categoryId) {
+    state.categoryId = categoryId;
+  }
+}
