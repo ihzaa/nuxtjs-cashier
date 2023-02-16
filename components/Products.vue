@@ -12,7 +12,7 @@
           <v-list>
             <v-list-item-group v-model="categoryId">
               <v-list-item v-for="(category, index) in categories" :value="category.id"
-                :disabled="category.id == categoryId">
+                :disabled="category.id == categoryId" :key="index">
                 <v-list-item-title>
                   {{ category.title }}
                 </v-list-item-title>
@@ -23,7 +23,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="2" v-for="(product, index) in filteredProduct">
+      <v-col cols="2" v-for="(product, index) in filteredProduct" :key="index">
         <v-card :title="product.title" :ripple="true">
           <v-card-actions>
             <v-img :src="require(`@/assets/images/products/${product.thumbnail}`)"></v-img>
