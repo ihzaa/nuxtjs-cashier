@@ -6,7 +6,7 @@
         <v-list-item v-for="(item, index) in items" :key="index">
           <v-list-item-content>
             <v-list-item-title>{{ item.title }}</v-list-item-title>
-            <v-list-item-subtitle>{{ currency(item.price) }}</v-list-item-subtitle>
+            <v-list-item-subtitle>{{ currency(item.price) }} x {{ item.quantity }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
