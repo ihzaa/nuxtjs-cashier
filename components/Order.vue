@@ -6,7 +6,16 @@
         <v-list-item v-for="(item, index) in items" :key="index">
           <v-list-item-content>
             <v-list-item-title>{{ item.title }}</v-list-item-title>
-            <v-list-item-subtitle>{{ currency(item.price) }} x {{ item.quantity }}</v-list-item-subtitle>
+            <v-list-item-subtitle>
+              {{ currency(item.price) }}
+              <v-btn @click="decrementItem(item.id)" icon color="primary" class="px-0" x-small>
+                <v-icon>mdi-chevron-down</v-icon>
+              </v-btn>
+              {{ item.quantity }}
+              <v-btn @click="incrementItem(item.id)" icon color="primary" class="px-0" x-small>
+                <v-icon>mdi-chevron-up</v-icon>
+              </v-btn>
+            </v-list-item-subtitle>
           </v-list-item-content>
           <v-list-action>
             <v-list-item-title>{{ currency(itemTotal(item.price, item.quantity)) }}</v-list-item-title>
@@ -18,13 +27,17 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
   methods: {
     currency(value) {
       return Intl.NumberFormat('en-US').format(value)
-    }
+    },
+    ...mapActions('carts', {
+      decrementItem: 'decrementItem',
+      incrementItem: 'incrementItem',
+    })
   },
   computed: {
     // ...mapState('carts', {
