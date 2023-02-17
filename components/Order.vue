@@ -5,9 +5,9 @@
       <v-list>
         <v-list-item v-for="(item, index) in items" :key="index">
           <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-              <v-list-item-subtitle>{{ item.price }}</v-list-item-subtitle>
-            </v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-subtitle>{{ currency(item.price) }}</v-list-item-subtitle>
+          </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-col>
@@ -18,6 +18,11 @@
 import { mapGetters, mapState } from 'vuex';
 
 export default {
+  methods: {
+    currency(value) {
+      return Intl.NumberFormat('en-US').format(value)
+    }
+  },
   computed: {
     // ...mapState('carts', {
     //   items: 'items'
