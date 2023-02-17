@@ -4,7 +4,7 @@
       <product></product>
     </v-col>
     <v-col cols="4" class="white">
-      ORDERS
+      <order></order>
     </v-col>
 </v-row>
 </template>
@@ -15,5 +15,4 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
