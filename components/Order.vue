@@ -34,6 +34,23 @@
             </v-list-item-title>
           </v-list-item-action>
         </v-list-item>
+        <v-list-group v-if="items.length" :value=false class="black-text grey lighten-3">
+          <template v-slot:activator>
+            <v-list-item-content class="text-h6">
+              <v-list-title>Additionals</v-list-title>
+            </v-list-item-content>
+          </template>
+          <template v-for="(additional, index) in additionals">
+            <v-list-item disabled >
+              <v-list-item-content>
+                <v-list-item-title>{{ additional.title }}</v-list-item-title>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-list-item-title>{{ currency(additional.value) }}</v-list-item-title>
+              </v-list-item-action>
+            </v-list-item>
+          </template>
+        </v-list-group>
       </v-list>
     </v-col>
 </v-row>
@@ -54,9 +71,10 @@ export default {
     })
   },
   computed: {
-    // ...mapState('carts', {
-    //   items: 'items'
-    // }),
+    ...mapState('carts', {
+      //   items: 'items',
+      additionals: 'additionals'
+    }),
     ...mapGetters('carts', {
       items: 'cartItems',
       itemTotal: 'itemTotal',
