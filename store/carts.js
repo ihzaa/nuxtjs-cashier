@@ -10,6 +10,9 @@ export const getters = {
         ...product, quantity
       }
     })
+  },
+  itemTotal: () => (price, quantity) => {
+    return price * quantity;
   }
 }
 

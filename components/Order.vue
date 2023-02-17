@@ -8,6 +8,9 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
             <v-list-item-subtitle>{{ currency(item.price) }} x {{ item.quantity }}</v-list-item-subtitle>
           </v-list-item-content>
+          <v-list-action>
+            <v-list-item-title>{{ currency(itemTotal(item.price, item.quantity)) }}</v-list-item-title>
+          </v-list-action>
         </v-list-item>
       </v-list>
     </v-col>
@@ -28,7 +31,8 @@ export default {
     //   items: 'items'
     // }),
     ...mapGetters('carts', {
-      items: 'cartItems'
+      items: 'cartItems',
+      itemTotal: 'itemTotal',
     })
   }
 }
