@@ -13,6 +13,11 @@ export const getters = {
   },
   itemTotal: () => (price, quantity) => {
     return price * quantity;
+  },
+  subTotal: (state, getters, rootState) => {
+    return getters.cartItems.reduce((total, item) => {
+      return total + getters.itemTotal(item.price, item.quantity);
+    }, 0);
   }
 }
 

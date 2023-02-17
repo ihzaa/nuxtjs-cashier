@@ -3,7 +3,7 @@
     <v-col cols="8" class="frame-content">
       <product></product>
     </v-col>
-    <v-col cols="4" class="white">
+    <v-col cols="4" class="frame-content white">
       <order></order>
     </v-col>
 </v-row>
