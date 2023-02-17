@@ -8,12 +8,18 @@ export const mutations = {
       id: id,
       quantity: 1
     });
-    console.log(state.items);
+  },
+  incrementItem(state, id) {
+    state.items.find(item => item.id === id).quantity++;
   }
 }
 
 export const actions = {
   addToCart({ commit, state }, id) {
-    commit('addItem', id);
+    const found = state.items.find(item => item.id === id)
+    if (found) {
+      commit('incrementItem', id);
+    } else
+      commit('addItem', id);
   }
 }
