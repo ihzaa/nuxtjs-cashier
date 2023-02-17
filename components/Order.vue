@@ -5,12 +5,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   computed: {
-    ...mapState('carts', {
-      items: 'items'
+    // ...mapState('carts', {
+    //   items: 'items'
+    // }),
+    ...mapGetters('carts', {
+      items: 'cartItems'
     })
   }
 }
