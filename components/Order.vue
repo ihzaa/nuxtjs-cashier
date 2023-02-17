@@ -17,12 +17,12 @@
               </v-btn>
             </v-list-item-subtitle>
           </v-list-item-content>
-          <v-list-action :name="index">
+          <v-list-item-action>
             <v-btn @click="removeItem(item.id)" icon color="error" x-small>
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
             <v-list-item-title>{{ currency(itemTotal(item.price, item.quantity)) }}</v-list-item-title>
-          </v-list-action>
+          </v-list-item-action>
         </v-list-item>
         <v-list-item v-if="items.length" class="text-h6 black-text grey lighten-2">
           <v-list-item-content>
@@ -34,19 +34,25 @@
             </v-list-item-title>
           </v-list-item-action>
         </v-list-item>
-        <v-list-group v-if="items.length" :value=false class="black-text grey lighten-3">
+        <v-list-group v-if="items.length" class="black-text grey lighten-3" :value=false>
           <template v-slot:activator>
             <v-list-item-content class="text-h6">
               <v-list-title>Additionals</v-list-title>
             </v-list-item-content>
           </template>
           <template v-for="(additional, index) in additionals">
-            <v-list-item disabled >
+            <v-list-item disabled>
               <v-list-item-content>
                 <v-list-item-title>{{ additional.title }}</v-list-item-title>
+                <v-list-item-subtitle v-if="additional.mode == 'percentage'">
+                  {{ additional.value }}%
+                </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
-                <v-list-item-title>{{ currency(additional.value) }}</v-list-item-title>
+                <v-list-item-title v-if="additional.mode == 'fix'">{{ currency(additional.value) }}</v-list-item-title>
+                <v-list-item-title v-else-if="additional.mode == 'percentage'">{{
+                  currency(calculatePercentage(additional.value))
+                }}</v-list-item-title>
               </v-list-item-action>
             </v-list-item>
           </template>
@@ -78,7 +84,8 @@ export default {
     ...mapGetters('carts', {
       items: 'cartItems',
       itemTotal: 'itemTotal',
-      subTotal: 'subTotal'
+      subTotal: 'subTotal',
+      calculatePercentage: 'calculatePercentage'
     })
   }
 }
