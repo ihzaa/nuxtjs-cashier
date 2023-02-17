@@ -18,6 +18,9 @@
             </v-list-item-subtitle>
           </v-list-item-content>
           <v-list-action>
+            <v-btn @click="removeItem(item.id)" icon color="error" x-small>
+              <v-icon>mdi-close-thick</v-icon>
+            </v-btn>
             <v-list-item-title>{{ currency(itemTotal(item.price, item.quantity)) }}</v-list-item-title>
           </v-list-action>
         </v-list-item>
@@ -37,6 +40,7 @@ export default {
     ...mapActions('carts', {
       decrementItem: 'decrementItem',
       incrementItem: 'incrementItem',
+      removeItem: 'removeItem',
     })
   },
   computed: {
