@@ -15,9 +15,9 @@
             </v-btn>
           </template>
           <v-list>
-            <v-list-item-group v-model="categoryId">
-              <v-list-item v-for="(category, index) in categories" :value="category.id"
-                :disabled="category.id == categoryId" :key="index" @change="updateCategoryId(category.id)">
+            <v-list-item-group>
+              <v-list-item v-for="(category, index) in categories" :value="category._id"
+                :disabled="category._id == categoryId" :key="index" @change="updateCategoryId(category._id)">
                 <v-list-item-title>
                   {{ category.title }}
                 </v-list-item-title>
@@ -57,21 +57,23 @@ export default ({
     ...mapActions({
       updateCategoryId: 'products/updateCategoryId',
       addToCart: 'carts/addToCart',
-      fetchProducts: 'products/fetchProducts'
+      fetchProducts: 'products/fetchProducts',
+      fetchCategories: 'products/fetchCategories',
     }),
     resetSearchCategory() {
       this.categoryId = false;
     }
   },
   mounted() {
-    this.fetchProducts()
+    this.fetchCategories();
+    this.fetchProducts();
   },
   computed: {
     filteredProduct() {
       if (this.categoryId) {
         return this.products.filter(s => s.categoryId == this.categoryId);
       } else if (this.selectedSearch) {
-        return this.products.filter(s => s.id == this.selectedSearch.id);
+        return this.products.filter(s => s._id == this.selectedSearch._id);
       }
       return this.products;
     },
