@@ -57,10 +57,14 @@ export default ({
     ...mapActions({
       updateCategoryId: 'products/updateCategoryId',
       addToCart: 'carts/addToCart',
+      fetchProducts: 'products/fetchProducts'
     }),
     resetSearchCategory() {
       this.categoryId = false;
     }
+  },
+  mounted() {
+    this.fetchProducts()
   },
   computed: {
     filteredProduct() {
