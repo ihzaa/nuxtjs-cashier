@@ -25,7 +25,7 @@
       </v-btn>
       <v-spacer></v-spacer>
     </v-bottom-navigation>
-  </v-app>
+</v-app>
 </template>
 
 <script>
@@ -55,5 +55,20 @@ export default {
       ],
     }
   },
+  methods: {
+    isWelcomeScreen() {
+      if (this.$router.currentRoute.path == '/') {
+        this.$router.push('/register')
+      }
+    }
+  },
+  watch: {
+    $route() {
+      this.isWelcomeScreen();
+    }
+  },
+  mounted() {
+    this.isWelcomeScreen();
+  }
 }
 </script>

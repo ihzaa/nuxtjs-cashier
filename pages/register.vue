@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="frame-content">
     <v-col cols="10" offset="1" md="4" offset-md="4">
       <v-card>
         <v-toolbar color="primary" dark>
