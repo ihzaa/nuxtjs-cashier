@@ -29,7 +29,7 @@
     </v-row>
     <v-row>
       <v-col cols="2" v-for="(product, index) in filteredProduct" :key="index">
-        <v-card @click="addToCart(product.id)" :title="product.title" :ripple="true">
+        <v-card @click="addToCart(product._id)" :title="product.title" :ripple="true">
           <v-card-actions>
             <v-img :src="require(`@/assets/images/products/${product.thumbnail}`)"></v-img>
           </v-card-actions>
