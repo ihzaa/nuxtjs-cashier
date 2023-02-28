@@ -7,11 +7,13 @@
         </v-toolbar>
         <v-card-text>
           <v-form>
-            <v-text-field v-model="form.full_name" name="full_name" label="Full Name" type="text" />
-            <v-text-field v-model="form.email" name="email" label="Email" type="email" />
-            <v-text-field v-model="form.password" name="password" label="Password" type="password" />
-            <v-text-field v-model="form.password_confirm" name="password_confirm" label="Re-type Password"
+            <v-text-field :rules="rules.full_name" v-model="form.full_name" name="full_name" label="Full Name"
+              type="text" />
+            <v-text-field :rules="rules.email" v-model="form.email" name="email" label="Email" type="email" />
+            <v-text-field :rules="rules.password" v-model="form.password" name="password" label="Password"
               type="password" />
+            <v-text-field :rules="rules.password_confirm" v-model="form.password_confirm" name="password_confirm"
+              label="Re-type Password" type="password" />
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -33,7 +35,24 @@ export default ({
         email: '',
         password: '',
         password_confirm: ''
-      }
+      },
+      rules: {
+        full_name: [
+          v => !!v || 'Fullname is required'
+        ],
+        email: [
+          v => !!v || 'Email is required',
+          v => /.+@+/.test(v) || 'Email invalid'
+
+        ],
+        password: [
+          v => !!v || 'Password is required',
+          v => v.length >= 8 || 'Password must be at least 8 characters'
+        ],
+        password_confirm: [
+          v => v === this.form.password || 'Passowrd confirm must be same as password',
+        ]
+      },
     }
   },
   methods: {
