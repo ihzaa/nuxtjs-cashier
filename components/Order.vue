@@ -8,17 +8,17 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
             <v-list-item-subtitle>
               {{ currency(item.price) }}
-              <v-btn @click="decrementItem(item.id)" icon color="primary" class="px-0" x-small>
+              <v-btn @click="decrementItem(item._id)" icon color="primary" class="px-0" x-small>
                 <v-icon>mdi-chevron-down</v-icon>
               </v-btn>
               {{ item.quantity }}
-              <v-btn @click="incrementItem(item.id)" icon color="primary" class="px-0" x-small>
+              <v-btn @click="incrementItem(item._id)" icon color="primary" class="px-0" x-small>
                 <v-icon>mdi-chevron-up</v-icon>
               </v-btn>
             </v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
-            <v-btn @click="removeItem(item.id)" icon color="error" x-small>
+            <v-btn @click="removeItem(item._id)" icon color="error" x-small>
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
             <v-list-item-title>{{ currency(itemTotal(item.price, item.quantity)) }}</v-list-item-title>

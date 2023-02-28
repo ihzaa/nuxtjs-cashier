@@ -61,7 +61,7 @@ export default ({
       fetchCategories: 'products/fetchCategories',
     }),
     resetSearchCategory() {
-      this.categoryId = false;
+      this.updateCategoryId(0);
     }
   },
   mounted() {
@@ -72,8 +72,6 @@ export default ({
     filteredProduct() {
       if (this.categoryId) {
         return this.products.filter(s => s.categoryId == this.categoryId);
-      } else if (this.selectedSearch) {
-        return this.products.filter(s => s._id == this.selectedSearch._id);
       }
       return this.products;
     },
@@ -92,6 +90,11 @@ export default ({
           return s.title;
         });
       }, 1000)
+    },
+    selectedSearch(product) {
+      if (product) {
+        this.addToCart(product._id);
+      }
     }
   }
 })
