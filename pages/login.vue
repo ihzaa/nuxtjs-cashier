@@ -59,6 +59,7 @@ export default ({
           if (!localStorage.welcomeScreen) {
             this.storeWelcomeScreen();
           }
+          this.$router.push('/dashboard');
         })
         .catch(err => {
           console.log(err);
