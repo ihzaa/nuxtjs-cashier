@@ -19,7 +19,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn :disabled="isDisabled" @click="onSubmit" color="primary">Register</v-btn>
+          <v-btn :disabled="isDisabled" @click="onSubmit" color="primary">
+            <span v-if="!isDisabled">Register</span>
+            <v-progress-circular v-if="isDisabled" color="primary" indeterminate></v-progress-circular></v-btn>
         </v-card-actions>
       </v-card>
       <p>Sudah punya akun? <v-btn plain to="/login">Login</v-btn></p>
