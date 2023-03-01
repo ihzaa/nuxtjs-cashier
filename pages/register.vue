@@ -19,7 +19,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="onSubmit" color="primary">Register</v-btn>
+          <v-btn :disabled="isDisabled" @click="onSubmit" color="primary">Register</v-btn>
         </v-card-actions>
       </v-card>
       <p>Sudah punya akun? <v-btn plain to="/login">Login</v-btn></p>
@@ -32,6 +32,7 @@ export default ({
   data() {
     return {
       emailExist: false,
+      isDisabled: false,
       form: {
         full_name: '',
         email: '',
@@ -45,7 +46,7 @@ export default ({
         email: [
           v => !!v || 'Email is required',
           v => /.+@+/.test(v) || 'Email invalid',
-          v => !this.emailExist || 'Email already in use',
+          // v => !this.emailExist || 'Email already in use',
 
         ],
         password: [
@@ -71,6 +72,7 @@ export default ({
       }
     },
     onSubmit() {
+      this.isDisabled = true;
       this.$axios.post('http://localhost:3002/api/auth/register', this.form)
         .then(response => {
           console.log(response);
@@ -79,6 +81,8 @@ export default ({
         .catch(err => {
           console.log(err);
           alert(err.message ?? 'Got some error!');
+        }).finally(() => {
+          this.isDisabled = false;
         })
     }
   }
