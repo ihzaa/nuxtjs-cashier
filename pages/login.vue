@@ -6,6 +6,9 @@
           Login
         </v-toolbar>
         <v-card-text>
+          <v-alert v-if="error_message != ''" class="red ligthen-2" dark>
+            {{ error_message }}
+          </v-alert>
           <v-form>
             <v-text-field :rules="rules.email" v-model="form.email" name="email" label="Email" type="email" />
             <v-text-field name="password" label="Password" type="password" v-model="form.password" />
@@ -28,6 +31,7 @@
 export default ({
   data() {
     return {
+      error_message: '',
       isDisabled: false,
       form: {
         email: '',
@@ -53,6 +57,7 @@ export default ({
     },
     onSubmit() {
       this.isDisabled = true;
+      this.error_message = '';
       this.$axios.post('http://localhost:3002/api/auth/login', this.form)
         .then(response => {
           console.log(response);
@@ -62,8 +67,7 @@ export default ({
           this.$router.push('/dashboard');
         })
         .catch(err => {
-          console.log(err);
-          alert(err.message ?? 'Got some error!');
+          this.error_message = err.response.data.message ?? (err.message ?? 'Got some error!')
         })
         .finally(() => {
           this.isDisabled = false;
