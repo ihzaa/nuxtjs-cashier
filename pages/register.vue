@@ -74,6 +74,11 @@ export default ({
       this.$axios.post('http://localhost:3002/api/auth/register', this.form)
         .then(response => {
           console.log(response);
+          this.$router.push('/login');
+        })
+        .catch(err => {
+          console.log(err);
+          alert(err.message ?? 'Got some error!');
         })
     }
   }
