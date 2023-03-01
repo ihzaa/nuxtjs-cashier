@@ -48,12 +48,17 @@ export default ({
     }
   },
   methods: {
+    storeWelcomeScreen() {
+      localStorage.setItem("welcomeScreen", true);
+    },
     onSubmit() {
       this.isDisabled = true;
       this.$axios.post('http://localhost:3002/api/auth/login', this.form)
         .then(response => {
           console.log(response);
-
+          if (!localStorage.welcomeScreen) {
+            this.storeWelcomeScreen();
+          }
         })
         .catch(err => {
           console.log(err);
