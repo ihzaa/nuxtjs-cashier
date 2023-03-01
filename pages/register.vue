@@ -9,7 +9,8 @@
           <v-form>
             <v-text-field :rules="rules.full_name" v-model="form.full_name" name="full_name" label="Full Name"
               type="text" />
-            <v-text-field :rules="rules.email" v-model="form.email" name="email" label="Email" type="email" />
+            <v-text-field @keyup="checkEmail" :rules="rules.email" v-model="form.email" name="email" label="Email"
+              type="email" />
             <v-text-field :rules="rules.password" v-model="form.password" name="password" label="Password"
               type="password" />
             <v-text-field :rules="rules.password_confirm" v-model="form.password_confirm" name="password_confirm"
@@ -30,6 +31,7 @@
 export default ({
   data() {
     return {
+      emailExist: false,
       form: {
         full_name: '',
         email: '',
@@ -42,7 +44,8 @@ export default ({
         ],
         email: [
           v => !!v || 'Email is required',
-          v => /.+@+/.test(v) || 'Email invalid'
+          v => /.+@+/.test(v) || 'Email invalid',
+          v => !this.emailExist || 'Email already in use',
 
         ],
         password: [
@@ -56,6 +59,17 @@ export default ({
     }
   },
   methods: {
+    checkEmail() {
+      const email = this.form.email;
+      if (/.+@+/.test(email)) {
+        this.$axios.post('http://localhost:3002/api/auth/is-email-exist', { email })
+          .then(response => {
+            this.emailExist = false;
+          }).catch(error => {
+            this.emailExist = true;
+          })
+      }
+    },
     onSubmit() {
       this.$axios.post('http://localhost:3002/api/auth/register', this.form)
         .then(response => {
