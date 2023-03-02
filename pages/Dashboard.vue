@@ -6,7 +6,7 @@
           Dashboard
         </v-toolbar>
         <v-card-text>
-          <h2>Hello kamu {{ authenticated }}</h2>
+          <h2>Hello kamu</h2>
         </v-card-text>
       </v-card>
     </v-col>
@@ -17,18 +17,6 @@
 import { mapGetters } from 'vuex';
 
 export default ({
-  computed: {
-    ...mapGetters('auth', {
-      authenticated: 'authenticated'
-    })
-  },
-  mounted() {
-    if (!this.authenticated) {
-      this.$router.push({
-        name: 'login___' + this.$i18n.locale,
-        params: { message: 'AUTH_REQUIRED' }
-      });
-    }
-  }
+  middleware: ['authenticated'],
 })
 </script>
