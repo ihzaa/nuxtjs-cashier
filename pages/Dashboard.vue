@@ -23,10 +23,9 @@ export default ({
     })
   },
   mounted() {
-    console.log(this.$router);
     if (!this.authenticated) {
       this.$router.push({
-        name: 'login',
+        name: 'login___' + this.$i18n.locale,
         params: { message: 'AUTH_REQUIRED' }
       });
     }

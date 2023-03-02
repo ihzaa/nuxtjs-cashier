@@ -7,7 +7,7 @@
         </v-toolbar>
         <v-card-text>
           <v-alert v-if="error_message != ''" class="red ligthen-2" dark>
-            {{ error_message }}
+            {{ $t(error_message) }}
           </v-alert>
           <v-form>
             <v-text-field :rules="rules.email" v-model="form.email" name="email" label="Email" type="email" />

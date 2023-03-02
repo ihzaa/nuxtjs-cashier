@@ -42,6 +42,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/i18n'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -49,7 +50,14 @@ export default {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
   },
-
+  i18n: {
+    /* module options */
+    langDir: 'lang/',
+    defaultLocale: 'id',
+    locales: [
+      { code: 'id', name: 'Indonesia', iso: 'id-ID', file: 'id.json' }
+    ]
+  },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/scss/variables.scss'],
