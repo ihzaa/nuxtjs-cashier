@@ -54,6 +54,11 @@ export default ({
       },
     }
   },
+  mounted(){
+    if(this.$route.params.message){
+      this.error_message = this.$route.params.message;
+    }
+  },
   methods: {
     ...mapMutations('auth', {
       setAccessToken: 'setAccessToken',
