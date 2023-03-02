@@ -28,6 +28,9 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
+
 export default ({
   data() {
     return {
@@ -52,6 +55,11 @@ export default ({
     }
   },
   methods: {
+    ...mapMutations('auth', {
+      setAccessToken: 'setAccessToken',
+      setRefreshToken: 'setRefreshToken',
+      setFullname: 'setFullname'
+    }),
     storeWelcomeScreen() {
       localStorage.setItem("welcomeScreen", true);
     },
@@ -60,10 +68,12 @@ export default ({
       this.error_message = '';
       this.$axios.post('http://localhost:3002/api/auth/login', this.form)
         .then(response => {
-          console.log(response);
           if (!localStorage.welcomeScreen) {
             this.storeWelcomeScreen();
           }
+          this.setFullname(response.data.fullname);
+          this.setAccessToken(response.data.access_token);
+          this.setRefreshToken(response.data.refresh_token);
           this.$router.push('/dashboard');
         })
         .catch(err => {
