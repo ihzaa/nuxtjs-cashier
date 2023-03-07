@@ -32,6 +32,7 @@ import { mapMutations } from 'vuex';
 
 
 export default ({
+  middleware: ['unauthenticated'],
   data() {
     return {
       error_message: '',
@@ -54,8 +55,8 @@ export default ({
       },
     }
   },
-  mounted(){
-    if(this.$route.params.message){
+  mounted() {
+    if (this.$route.params.message) {
       this.error_message = this.$route.params.message;
     }
   },
@@ -82,7 +83,14 @@ export default ({
           this.$router.push('/dashboard');
         })
         .catch(err => {
-          this.error_message = err.response.data.message ?? (err.message ?? 'Got some error!')
+          if (err.response) {
+            if (err.response.data) {
+              this.error_message = err.response.data.message ?? '';
+            }
+          }
+          if (!this.error_message) {
+            this.error_message = err;
+          }
         })
         .finally(() => {
           this.isDisabled = false;

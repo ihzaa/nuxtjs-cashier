@@ -31,6 +31,7 @@
 
 <script>
 export default ({
+  middleware: ['unauthenticated'],
   data() {
     return {
       emailExist: false,
@@ -81,8 +82,14 @@ export default ({
           this.$router.push('/login');
         })
         .catch(err => {
-          console.log(err);
-          alert(err.message ?? 'Got some error!');
+          if (err.response) {
+            if (err.response.data) {
+              this.error_message = err.response.data.message ?? '';
+            }
+          }
+          if (!this.error_message) {
+            this.error_message = err;
+          }
         }).finally(() => {
           this.isDisabled = false;
         })
