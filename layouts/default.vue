@@ -29,31 +29,38 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'DefaultLayout',
   data() {
     return {
       sideDrawer: false,
-      sideMenu: [
+      sideMenu: [],
+      allSideMenu: [
         {
           icon: 'mdi-account',
           title: 'Account',
           to: '/account',
+          isAuthenticated: true
         },
         {
           icon: 'mdi-bell',
           title: 'Notification',
           to: '/account',
+          isAuthenticated: true
         },
         {
           icon: 'mdi-login',
           title: 'Login',
           to: '/login',
+          isAuthenticated: false
         },
         {
           icon: 'mdi-logout',
           title: 'Logout',
           to: '/logout',
+          isAuthenticated: true
         },
       ],
       bottomMenu: [
@@ -73,16 +80,28 @@ export default {
           this.$router.push('/register')
         }
       }
+    },
+    filterSideMenu() {
+      this.sideMenu = this.allSideMenu.filter(item => {
+        return item.isAuthenticated == this.authenticated
+      });
     }
   },
   watch: {
     $route() {
       this.isWelcomeScreen();
+    },
+    authenticated() {
+      this.filterSideMenu();
     }
   },
   mounted() {
     // localStorage.setItem("welcomeScreen", true);
     this.isWelcomeScreen();
+    this.filterSideMenu();
+  },
+  computed: {
+    ...mapGetters('auth', ['authenticated']),
   }
 }
 </script>
