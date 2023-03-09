@@ -42,25 +42,33 @@ export default {
           icon: 'mdi-account',
           title: 'Account',
           to: '/account',
-          isAuthenticated: true
+          middleware: {
+            isAuthenticated: true
+          }
         },
         {
           icon: 'mdi-bell',
           title: 'Notification',
           to: '/account',
-          isAuthenticated: true
+          middleware: {
+            isAuthenticated: true
+          }
         },
         {
           icon: 'mdi-login',
           title: 'Login',
           to: '/login',
-          isAuthenticated: false
+          middleware: {
+            isAuthenticated: false
+          }
         },
         {
           icon: 'mdi-logout',
           title: 'Logout',
           to: '/logout',
-          isAuthenticated: true
+          middleware: {
+            isAuthenticated: true
+          }
         },
       ],
       bottomMenu: [
@@ -83,7 +91,7 @@ export default {
     },
     filterSideMenu() {
       this.sideMenu = this.allSideMenu.filter(item => {
-        return item.isAuthenticated == this.authenticated
+        return item.middleware.isAuthenticated == this.authenticated
       });
     }
   },
