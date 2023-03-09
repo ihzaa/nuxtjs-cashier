@@ -39,36 +39,40 @@ export default {
       sideMenu: [],
       allSideMenu: [
         {
+          icon: 'mdi-view-dashboard-variant',
+          title: 'Dashboard',
+          to: '/dashboard',
+          middleware: ['authenticated']
+        },
+        {
+          icon: 'mdi-application',
+          title: 'Casher',
+          to: '/',
+          middleware: ['admin', 'casher']
+        },
+        {
+          icon: 'mdi-fingerprint',
+          title: 'Absence',
+          to: '/absence',
+          middleware: ['authenticated']
+        },
+        {
           icon: 'mdi-account',
           title: 'Account',
           to: '/account',
-          middleware: {
-            isAuthenticated: true
-          }
-        },
-        {
-          icon: 'mdi-bell',
-          title: 'Notification',
-          to: '/account',
-          middleware: {
-            isAuthenticated: true
-          }
+          middleware: ['admin', 'casher']
         },
         {
           icon: 'mdi-login',
           title: 'Login',
           to: '/login',
-          middleware: {
-            isAuthenticated: false
-          }
+          middleware: ['unauthenticated']
         },
         {
           icon: 'mdi-logout',
           title: 'Logout',
           to: '/logout',
-          middleware: {
-            isAuthenticated: true
-          }
+          middleware: ['authenticated']
         },
       ],
       bottomMenu: [
@@ -90,8 +94,12 @@ export default {
       }
     },
     filterSideMenu() {
+      let auth = this.authenticated ? 'authenticated' : 'unauthenticated'
       this.sideMenu = this.allSideMenu.filter(item => {
-        return item.middleware.isAuthenticated == this.authenticated
+        if (item.middleware.includes(this.user.role)) return true;
+        if (this.authenticated) {
+          return item.middleware.includes(auth)
+        }
       });
     }
   },
@@ -107,9 +115,10 @@ export default {
     // localStorage.setItem("welcomeScreen", true);
     this.isWelcomeScreen();
     this.filterSideMenu();
+    console.log(this.user);
   },
   computed: {
-    ...mapGetters('auth', ['authenticated']),
+    ...mapGetters('auth', ['authenticated', 'user']),
   }
 }
 </script>
