@@ -44,20 +44,20 @@ export default ({
       },
       rules: {
         full_name: [
-          v => !!v || 'Fullname is required'
+          v => !!v || this.$t('FIELD_REQUIRED', { field: 'Nama Lengkap' })
         ],
         email: [
-          v => !!v || 'Email is required',
+          v => !!v || this.$t('FIELD_REQUIRED', { field: 'Email' }),
           v => /.+@+/.test(v) || 'Email invalid',
           // v => !this.emailExist || 'Email already in use',
 
         ],
         password: [
-          v => !!v || 'Password is required',
-          v => v.length >= 8 || 'Password must be at least 8 characters'
+          v => !!v || this.$t('FIELD_REQUIRED', { field: 'Password' }),
+          v => v.length >= 8 || this.$t('FIELD_MIN', { field: 'Password', min: 8 })
         ],
         password_confirm: [
-          v => v === this.form.password || 'Passowrd confirm must be same as password',
+          v => v === this.form.password || this.$t('FIELD_CONFIRM', { field: 'Password Konfirmasi', target: 'Password' }),
         ]
       },
     }
