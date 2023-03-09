@@ -24,3 +24,16 @@ export const mutations = {
     state.fullname = fullname;
   }
 };
+
+export const actions = {
+  login({ commit }, payload) {
+    commit('setAccessToken', payload.access_token);
+    commit('setRefreshToken', payload.refresh_token);
+    commit('setFullname', payload.fullname);
+  },
+  logout({ commit }) {
+    commit('setAccessToken', null);
+    commit('setRefreshToken', null);
+    commit('setFullname', null);
+  }
+}

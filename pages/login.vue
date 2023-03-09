@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 
 export default ({
@@ -61,11 +61,7 @@ export default ({
     }
   },
   methods: {
-    ...mapMutations('auth', {
-      setAccessToken: 'setAccessToken',
-      setRefreshToken: 'setRefreshToken',
-      setFullname: 'setFullname'
-    }),
+    ...mapActions('auth', ['login']),
     storeWelcomeScreen() {
       localStorage.setItem("welcomeScreen", true);
     },
@@ -77,9 +73,11 @@ export default ({
           if (!localStorage.welcomeScreen) {
             this.storeWelcomeScreen();
           }
-          this.setFullname(response.data.fullname);
-          this.setAccessToken(response.data.access_token);
-          this.setRefreshToken(response.data.refresh_token);
+          this.login({
+            access_token: response.data.access_token,
+            refresh_token: response.data.refresh_token,
+            fullname: response.data.fullname
+          })
           this.$router.push('/dashboard');
         })
         .catch(err => {
