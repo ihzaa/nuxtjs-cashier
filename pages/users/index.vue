@@ -12,7 +12,7 @@
           <v-data-table :headers="headers" :items-per-page="10" :items="users" :server-items-length="totalData"
             :footer-props="{
               itemsPerPageOptions: [10, 20, 30, 40, 50]
-            }" :options.sync="options" />
+            }" :options.sync="options" :loading="loading" />
         </v-card-text>
       </v-card>
     </v-col>
@@ -24,6 +24,7 @@
 export default {
   data() {
     return {
+      loading: false,
       options: {},
       totalData: 0,
       breadcrumbs: [
@@ -35,29 +36,45 @@ export default {
       ],
       users: [],
       headers: [{
+        text: '#',
+        value: 'row',
+        sortable: false
+      },
+      {
         text: 'Fullname',
-        value: 'full_name'
+        value: 'full_name',
+        sortable: false
       },
       {
         text: 'Email',
-        value: 'email'
+        value: 'email',
+        sortable: false
       },
       {
         text: 'Role',
-        value: 'role'
+        value: 'role',
+        sortable: false
       }]
     }
   },
   methods: {
     fetchUser() {
+      this.loading = true;
+      this.users = [];
       const { page, itemsPerPage } = this.options
       this.$axios.$get(`http://localhost:3001/api/users?page=${page}&limit=${itemsPerPage}`)
         .then(response => {
           this.users = response.data
           this.totalData = response.meta.total
+
+          let startItem = (page - 1) * itemsPerPage;
+          this.users.map((user) => user.row = ++startItem)
         })
         .catch(err => {
           console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
         })
     }
   },
