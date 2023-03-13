@@ -9,7 +9,10 @@
           <div class="mb-4">
             <v-breadcrumbs :items="breadcrumbs" class="pa-0" />
           </div>
-          <v-data-table :headers="headers" :items-per-page="10" :items="users" />
+          <v-data-table :headers="headers" :items-per-page="10" :items="users" :server-items-length="totalData"
+            :footer-props="{
+              itemsPerPageOptions: [10, 20, 30, 40, 50]
+            }" />
         </v-card-text>
       </v-card>
     </v-col>
@@ -17,12 +20,11 @@
 </template>
 
 <script>
-import { get } from 'http';
-
 
 export default {
   data() {
     return {
+      totalData: 0,
       breadcrumbs: [
         {
           text: 'Users',
@@ -51,6 +53,7 @@ export default {
         .then(response => {
           console.log(response);
           this.users = response.data
+          this.totalData = response.meta.total
           console.log(this.users);
         })
         .catch(err => {
