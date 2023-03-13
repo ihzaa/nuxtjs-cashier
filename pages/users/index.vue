@@ -4,6 +4,8 @@
       <v-card class="my-3">
         <v-toolbar color="primary" dark>
           Users
+          <v-spacer></v-spacer>
+          <v-text-field v-model="search" append-icon="mdi-magnify" label="search" single-line hide-details></v-text-field>
         </v-toolbar>
         <v-card-text>
           <div class="mb-4">
@@ -12,7 +14,7 @@
           <v-data-table :headers="headers" :items-per-page="10" :items="users" :server-items-length="totalData"
             :footer-props="{
               itemsPerPageOptions: [10, 20, 30, 40, 50]
-            }" :options.sync="options" :loading="loading" />
+            }" :options.sync="options" :loading="loading" :search.sync="search" />
         </v-card-text>
       </v-card>
     </v-col>
@@ -24,6 +26,7 @@
 export default {
   data() {
     return {
+      search: '',
       loading: false,
       options: {},
       totalData: 0,
@@ -62,7 +65,7 @@ export default {
       this.loading = true;
       this.users = [];
       const { page, itemsPerPage } = this.options
-      this.$axios.$get(`http://localhost:3001/api/users?page=${page}&limit=${itemsPerPage}`)
+      this.$axios.$get(`http://localhost:3001/api/users?page=${page}&limit=${itemsPerPage}&search=${this.search}`)
         .then(response => {
           this.users = response.data
           this.totalData = response.meta.total
@@ -87,6 +90,11 @@ export default {
         this.fetchUser()
       },
       deep: true
+    },
+    search: {
+      handler() {
+        this.fetchUser()
+      }
     }
   }
 }
