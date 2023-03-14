@@ -9,11 +9,13 @@
           <div class="d-flex mb-4">
             <v-breadcrumbs :items="breadcrumbs" class="pa-0" />
           </div>
+          <v-alert v-if="error_message != ''" class="red ligthen-2" dark>
+            {{ $t(error_message) }}
+          </v-alert>
           <v-form>
             <v-text-field :rules="rules.full_name" v-model="form.full_name" name="full_name" label="Full Name"
               type="text" />
-            <v-text-field :rules="rules.email" v-model="form.email" name="email" label="Email"
-              type="email" />
+            <v-text-field :rules="rules.email" v-model="form.email" name="email" label="Email" type="email" />
             <v-text-field :rules="rules.password" v-model="form.password" name="password" label="Password"
               type="password" />
             <v-text-field :rules="rules.password_confirm" v-model="form.password_confirm" name="password_confirm"
@@ -38,6 +40,7 @@ export default ({
   middleware: ['authenticated'],
   data() {
     return {
+      error_message: '',
       emailExist: false,
       isDisabled: false,
       roles: ['employee', 'casher', 'admin'],
@@ -102,7 +105,6 @@ export default ({
           this.$router.push('/users');
         })
         .catch(err => {
-          console.log(err);
           if (err.response) {
             if (err.response.data) {
               this.error_message = err.response.data.message ?? '';
