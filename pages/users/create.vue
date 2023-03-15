@@ -12,7 +12,7 @@
           <v-alert v-if="error_message != ''" class="red ligthen-2" dark>
             {{ $t(error_message) }}
           </v-alert>
-          <v-form>
+          <v-form ref="form">
             <v-text-field :rules="rules.full_name" v-model="form.full_name" name="full_name" label="Full Name"
               type="text" />
             <v-text-field :rules="rules.email" v-model="form.email" name="email" label="Email" type="email" />
@@ -99,23 +99,25 @@ export default ({
       }
     },
     onSubmit() {
-      this.isDisabled = true;
-      this.$axios.post('http://localhost:3001/api/users', this.form)
-        .then(response => {
-          this.$router.push('/users');
-        })
-        .catch(err => {
-          if (err.response) {
-            if (err.response.data) {
-              this.error_message = err.response.data.message ?? '';
+      if (this.$refs.form.validate()) {
+        this.isDisabled = true;
+        this.$axios.post('http://localhost:3001/api/users', this.form)
+          .then(response => {
+            this.$router.push('/users');
+          })
+          .catch(err => {
+            if (err.response) {
+              if (err.response.data) {
+                this.error_message = err.response.data.message ?? '';
+              }
             }
-          }
-          if (!this.error_message) {
-            this.error_message = err;
-          }
-        }).finally(() => {
-          this.isDisabled = false;
-        })
+            if (!this.error_message) {
+              this.error_message = err;
+            }
+          }).finally(() => {
+            this.isDisabled = false;
+          });
+      }
     }
   }
 })
