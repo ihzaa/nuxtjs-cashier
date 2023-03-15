@@ -18,7 +18,16 @@
           <v-data-table :headers="headers" :items-per-page="10" :items="users" :server-items-length="totalData"
             :footer-props="{
               itemsPerPageOptions: [10, 20, 30, 40, 50]
-            }" :options.sync="options" :loading="loading" :search.sync="search" />
+            }" :options.sync="options" :loading="loading" :search.sync="search">
+            <template v-slot:item.action="{ item }">
+              <v-btn :to="`users/edit/${item._id}`" icon color="primary">
+                <v-icon class="small">mdi-pencil</v-icon>
+              </v-btn>
+              <v-btn icon color="error">
+                <v-icon class="small">mdi-delete</v-icon>
+              </v-btn>
+            </template>
+          </v-data-table>
         </v-card-text>
       </v-card>
     </v-col>
@@ -61,7 +70,13 @@ export default {
         text: 'Role',
         value: 'role',
         sortable: false
-      }]
+      },
+      {
+        text: 'act',
+        value: 'action',
+        sortable: false
+      },
+      ]
     }
   },
   methods: {
