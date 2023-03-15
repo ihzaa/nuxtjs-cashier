@@ -48,7 +48,8 @@ export default ({
         {
           text: 'Users',
           disabled: false,
-          to: '/users'
+          to: '/users',
+          exact: true
         },
         {
           text: 'Create',
