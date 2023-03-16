@@ -23,7 +23,7 @@
             <template v-slot:top>
               <v-dialog v-model="dialogDelete" max-width="500px">
                 <v-card>
-                  <v-card-title>Yakin hapus data?</v-card-title>
+                  <v-card-title>Yakin hapus data {{ deleteItemObj.full_name }}?</v-card-title>
                   <v-card-action class="d-flex">
                     <v-spacer></v-spacer>
 
@@ -59,6 +59,7 @@ export default {
         type: '',
         message: ''
       },
+      deleteItemObj: {},
       search: '',
       loading: false,
       options: {},
@@ -102,9 +103,28 @@ export default {
   methods: {
     deleteItem(item) {
       this.dialogDelete = true;
+      this.deleteItemObj = item;
     },
     closeDelete() {
       this.dialogDelete = false;
+    },
+    deleteConfirm() {
+      this.$axios.$delete(`http://localhost:3001/api/users/${this.deleteItemObj._id}`)
+        .then(response => {
+          this.alert.show = true;
+          this.alert.type = 'success';
+          this.alert.message = 'Berhasil hapus data';
+          this.fetchUser();
+        })
+        .catch(err => {
+          let message = err.response.data.message;
+          this.alert.show = true;
+          this.alert.type = 'error';
+          this.alert.message = message;
+        })
+        .finally(() => {
+          this.dialogDelete = false;
+        });
     },
     fetchUser() {
       this.loading = true;
