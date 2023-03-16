@@ -103,6 +103,17 @@ export default ({
           })
       }
     },
+    fetchData() {
+      this.$axios.$get(`http://localhost:3001/api/users/${this.id}`)
+        .then(response => {
+          this.form.full_name = response.data.full_name;
+          this.form.email = response.data.email;
+          this.form.role = response.data.role;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     onSubmit() {
       if (this.$refs.form.validate()) {
         this.isDisabled = true;
@@ -126,7 +137,7 @@ export default ({
     }
   },
   mounted() {
-    alert(this.id)
+    this.fetchData();
   }
 })
 </script>

@@ -19,7 +19,7 @@
     </v-main>
     <v-bottom-navigation horizontal height="10vh" fixed app>
       <v-app-bar-nav-icon @click.stop="sideDrawer = !sideDrawer" v-ripple="false" plain />
-      <v-btn v-for="(item, i) in bottomMenu" :to="item.to" :key="i" v-ripped="false" plain>
+      <v-btn v-for="(item, i) in bottomMenu" :to="item.to" :key="i" :ripped="false" plain>
         <span>{{ item.title }}</span>
         <v-icon>{{ item.icon }}</v-icon>
       </v-btn>
