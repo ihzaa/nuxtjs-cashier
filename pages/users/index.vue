@@ -20,11 +20,24 @@
             :footer-props="{
               itemsPerPageOptions: [10, 20, 30, 40, 50]
             }" :options.sync="options" :loading="loading" :search.sync="search">
+            <template v-slot:top>
+              <v-dialog v-model="dialogDelete" max-width="500px">
+                <v-card>
+                  <v-card-title>Yakin hapus data?</v-card-title>
+                  <v-card-action class="d-flex">
+                    <v-spacer></v-spacer>
+
+                    <v-btn color="primary" text @click="closeDelete">Batal</v-btn>
+                    <v-btn color="error" text @click="deleteConfirm">Ok</v-btn>
+                  </v-card-action>
+                </v-card>
+              </v-dialog>
+            </template>
             <template v-slot:item.action="{ item }">
               <v-btn :to="`users/edit/${item._id}`" icon color="primary">
                 <v-icon class="small">mdi-pencil</v-icon>
               </v-btn>
-              <v-btn icon color="error">
+              <v-btn icon color="error" @click="deleteItem(item)">
                 <v-icon class="small">mdi-delete</v-icon>
               </v-btn>
             </template>
@@ -40,6 +53,7 @@
 export default {
   data() {
     return {
+      dialogDelete: false,
       alert: {
         show: false,
         type: '',
@@ -86,6 +100,12 @@ export default {
     }
   },
   methods: {
+    deleteItem(item) {
+      this.dialogDelete = true;
+    },
+    closeDelete() {
+      this.dialogDelete = false;
+    },
     fetchUser() {
       this.loading = true;
       this.users = [];
