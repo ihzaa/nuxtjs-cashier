@@ -79,8 +79,8 @@ export default ({
 
         ],
         password: [
-          v => !!v || this.$t('FIELD_REQUIRED', { field: 'Password' }),
-          v => v.length >= 8 || this.$t('FIELD_MIN', { field: 'Password', min: 8 })
+          // v =>  !!v || this.$t('FIELD_REQUIRED', { field: 'Password' }),
+          v => v.length == 0 ||v.length >= 8 || this.$t('FIELD_MIN', { field: 'Password', min: 8 })
         ],
         password_confirm: [
           v => v === this.form.password || this.$t('FIELD_CONFIRM', { field: 'Password Konfirmasi', target: 'Password' }),
@@ -117,9 +117,9 @@ export default ({
     onSubmit() {
       if (this.$refs.form.validate()) {
         this.isDisabled = true;
-        this.$axios.post('http://localhost:3001/api/users', this.form)
+        this.$axios.$put(`http://localhost:3001/api/users/${this.id}`, this.form)
           .then(response => {
-            this.$router.push('/users');
+            // this.$router.push('/users');
           })
           .catch(err => {
             if (err.response) {
