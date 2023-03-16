@@ -2,5 +2,8 @@
     "AUTH_REQUIRED" : "Anda Perlu Login Untuk Mengakses Halaman!",
     "FIELD_REQUIRED": "{field} harus diisi",
     "FIELD_MIN": "{field} minimal {min} karakter",
-    "FIELD_CONFIRM": "{field} tidak sama dengan {target}"
+    "FIELD_CONFIRM": "{field} tidak sama dengan {target}",
+    "UPDATE_SUCCESS":"Update {title} berhasil.",
+    "ID_NOT_VALID" : "ID Tidak Valid",
+    "CREATE_SUCCESS" : "Berhasil menambahkan data {title}."
   }

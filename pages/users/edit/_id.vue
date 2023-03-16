@@ -27,7 +27,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn :disabled="isDisabled" @click="onSubmit" color="primary">
-            <span v-if="!isDisabled">Save</span>
+            <span v-if="!isDisabled">Update</span>
             <v-progress-circular v-if="isDisabled" color="primary" indeterminate></v-progress-circular></v-btn>
         </v-card-actions>
       </v-card>
@@ -80,7 +80,7 @@ export default ({
         ],
         password: [
           // v =>  !!v || this.$t('FIELD_REQUIRED', { field: 'Password' }),
-          v => v.length == 0 ||v.length >= 8 || this.$t('FIELD_MIN', { field: 'Password', min: 8 })
+          v => v.length == 0 || v.length >= 8 || this.$t('FIELD_MIN', { field: 'Password', min: 8 })
         ],
         password_confirm: [
           v => v === this.form.password || this.$t('FIELD_CONFIRM', { field: 'Password Konfirmasi', target: 'Password' }),
@@ -111,7 +111,11 @@ export default ({
           this.form.role = response.data.role;
         })
         .catch(err => {
-          console.log(err);
+          let message = err.response.data.message;
+          this.$router.push({
+            name: 'users___' + this.$i18n.locale,
+            params: { message, type: 'error' }
+          });
         });
     },
     onSubmit() {
@@ -119,7 +123,10 @@ export default ({
         this.isDisabled = true;
         this.$axios.$put(`http://localhost:3001/api/users/${this.id}`, this.form)
           .then(response => {
-            // this.$router.push('/users');
+            this.$router.push({
+              name: 'users___' + this.$i18n.locale,
+              params: { message: 'UPDATE_SUCCESS' }
+            });
           })
           .catch(err => {
             if (err.response) {

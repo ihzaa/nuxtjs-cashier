@@ -8,6 +8,7 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="search" single-line hide-details></v-text-field>
         </v-toolbar>
         <v-card-text>
+          <v-alert v-if="alert.show" :type="alert.type">{{ alert.message }}</v-alert>
           <div class="d-flex mb-4">
             <v-breadcrumbs :items="breadcrumbs" class="pa-0" />
             <v-spacer></v-spacer>
@@ -39,6 +40,11 @@
 export default {
   data() {
     return {
+      alert: {
+        show: false,
+        type: '',
+        message: ''
+      },
       search: '',
       loading: false,
       options: {},
@@ -102,6 +108,24 @@ export default {
   },
   mounted() {
     this.fetchUser()
+    if (this.$route.params.message == 'UPDATE_SUCCESS') {
+      this.alert.show = true;
+      this.alert.type = 'success';
+      this.alert.message = this.$t(this.$route.params.message, {
+        title: 'user'
+      });
+    }
+    else if (this.$route.params.message == "CREATE_SUCCESS") {
+      this.alert.show = true;
+      this.alert.type = 'success';
+      this.alert.message = this.$t(this.$route.params.message, {
+        title: 'user'
+      });
+    } else if (this.$route.params.message) {
+      this.alert.show = true;
+      this.alert.type = this.$route.params.type ?? 'danger';
+      this.alert.message = this.$t(this.$route.params.message);
+    }
   },
   watch: {
     options: {

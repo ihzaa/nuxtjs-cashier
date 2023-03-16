@@ -104,7 +104,10 @@ export default ({
         this.isDisabled = true;
         this.$axios.post('http://localhost:3001/api/users', this.form)
           .then(response => {
-            this.$router.push('/users');
+            this.$router.push({
+              name: 'users___' + this.$i18n.locale,
+              params: { message: 'CREATE_SUCCESS' }
+            });
           })
           .catch(err => {
             if (err.response) {
