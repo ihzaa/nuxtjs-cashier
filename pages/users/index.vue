@@ -144,28 +144,34 @@ export default {
         .finally(() => {
           this.loading = false;
         })
+    },
+    alertFromRoute() {
+      if (this.$route.params.message == 'UPDATE_SUCCESS') {
+        this.alert.show = true;
+        this.alert.type = 'success';
+        this.alert.message = this.$t(this.$route.params.message, {
+          title: 'user'
+        });
+      }
+      else if (this.$route.params.message == "CREATE_SUCCESS") {
+        this.showAlert(this.$t(this.$route.params.message, {
+          title: 'user'
+        }), this.$route.params.type ?? 'success');
+
+      } else if (this.$route.params.message) {
+        this.showAlert(this.$t(this.$route.params.message), this.$route.params.type ?? 'danger')
+      }
+    },
+    showAlert(message, type) {
+      this.alert.show = true;
+      this.alert.type = type;
+      this.alert.message = message;
+
     }
   },
   mounted() {
-    this.fetchUser()
-    if (this.$route.params.message == 'UPDATE_SUCCESS') {
-      this.alert.show = true;
-      this.alert.type = 'success';
-      this.alert.message = this.$t(this.$route.params.message, {
-        title: 'user'
-      });
-    }
-    else if (this.$route.params.message == "CREATE_SUCCESS") {
-      this.alert.show = true;
-      this.alert.type = 'success';
-      this.alert.message = this.$t(this.$route.params.message, {
-        title: 'user'
-      });
-    } else if (this.$route.params.message) {
-      this.alert.show = true;
-      this.alert.type = this.$route.params.type ?? 'danger';
-      this.alert.message = this.$t(this.$route.params.message);
-    }
+    this.fetchUser();
+    this.alertFromRoute();
   },
   watch: {
     options: {
