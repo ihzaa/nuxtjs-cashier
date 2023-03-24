@@ -5,7 +5,7 @@ export default function ({ $axios }, inject) {
   })
 
   // Set baseURL to something different
-  axiosAuth.setBaseURL('http://localhost:3002')
+  axiosAuth.setBaseURL(process.env.API_AUTH_URL)
 
   // Inject to context as $api
   inject('axiosAuth', axiosAuth)
