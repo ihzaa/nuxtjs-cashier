@@ -109,7 +109,7 @@ export default {
       this.dialogDelete = false;
     },
     deleteConfirm() {
-      this.$axios.$delete(`http://localhost:3001/api/users/${this.deleteItemObj._id}`)
+      this.$axios.$delete(`/api/users/${this.deleteItemObj._id}`)
         .then(response => {
           this.alert.show = true;
           this.alert.type = 'success';
@@ -130,7 +130,7 @@ export default {
       this.loading = true;
       this.users = [];
       const { page, itemsPerPage } = this.options
-      this.$axios.$get(`http://localhost:3001/api/users?page=${page}&limit=${itemsPerPage}&search=${this.search}`)
+      this.$axios.$get(`/api/users?page=${page}&limit=${itemsPerPage}&search=${this.search}`)
         .then(response => {
           this.users = response.data
           this.totalData = response.meta.total

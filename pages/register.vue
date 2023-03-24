@@ -66,7 +66,7 @@ export default ({
     checkEmail() {
       const email = this.form.email;
       if (/.+@+/.test(email)) {
-        this.$axios.post('http://localhost:3002/api/auth/is-email-exist', { email })
+        this.$axiosAuth.post('/api/auth/is-email-exist', { email })
           .then(response => {
             this.emailExist = false;
           }).catch(error => {
@@ -76,9 +76,8 @@ export default ({
     },
     onSubmit() {
       this.isDisabled = true;
-      this.$axios.post('http://localhost:3002/api/auth/register', this.form)
+      this.$axiosAuth.post('/api/auth/register', this.form)
         .then(response => {
-          console.log(response);
           this.$router.push('/login');
         })
         .catch(err => {

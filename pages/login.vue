@@ -68,15 +68,15 @@ export default ({
     onSubmit() {
       this.isDisabled = true;
       this.error_message = '';
-      this.$axios.post('http://localhost:3002/api/auth/login', this.form)
+      this.$axiosAuth.$post('/api/auth/login', this.form)
         .then(response => {
           if (!localStorage.welcomeScreen) {
             this.storeWelcomeScreen();
           }
           this.login({
-            access_token: response.data.access_token,
-            refresh_token: response.data.refresh_token,
-            fullname: response.data.fullname
+            access_token: response.access_token,
+            refresh_token: response.refresh_token,
+            fullname: response.fullname
           })
           this.$router.push('/dashboard');
         })
