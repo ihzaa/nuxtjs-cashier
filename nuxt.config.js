@@ -28,6 +28,7 @@ export default {
   plugins: [
     { src: '~/plugins/persistedState.js', ssr: false },
     '~/plugins/axios',
+    '~/plugins/axiosIntersection',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
