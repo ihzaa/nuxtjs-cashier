@@ -6,6 +6,9 @@
           Register
         </v-toolbar>
         <v-card-text>
+          <v-alert v-if="error_message != ''" class="red ligthen-2" dark>
+            {{ $t(error_message) }}
+          </v-alert>
           <v-form>
             <v-text-field :rules="rules.full_name" v-model="form.full_name" name="full_name" label="Full Name"
               type="text" />
@@ -19,9 +22,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn :disabled="isDisabled" @click="onSubmit" color="primary">
-            <span v-if="!isDisabled">Register</span>
-            <v-progress-circular v-if="isDisabled" color="primary" indeterminate></v-progress-circular></v-btn>
+          <v-btn :loading="isDisabled" @click="onSubmit" color="primary">
+            <span>Register</span>
+          </v-btn>
         </v-card-actions>
       </v-card>
       <p>Sudah punya akun? <v-btn plain to="/login">Login</v-btn></p>
@@ -32,12 +35,13 @@
 <script>
 export default ({
   middleware: ['unauthenticated'],
-  head:{
+  head: {
     title: 'Logout'
   },
   data() {
     return {
       emailExist: false,
+      error_message: '',
       isDisabled: false,
       form: {
         full_name: '',

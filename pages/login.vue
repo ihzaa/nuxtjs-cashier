@@ -16,9 +16,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn :disabled="isDisabled" color="primary" @click="onSubmit">
-            <span v-if="!isDisabled">Login</span>
-            <v-progress-circular v-if="isDisabled" color="primary" indeterminate></v-progress-circular>
+          <v-btn :loading="isDisabled" color="primary" @click="onSubmit">
+            <span>Login</span>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -33,7 +32,7 @@ import { mapActions } from 'vuex';
 
 export default ({
   middleware: ['unauthenticated'],
-  head:{
+  head: {
     title: 'Login'
   },
   data() {
