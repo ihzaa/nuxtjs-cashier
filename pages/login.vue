@@ -33,6 +33,9 @@ import { mapActions } from 'vuex';
 
 export default ({
   middleware: ['unauthenticated'],
+  head:{
+    title: 'Login'
+  },
   data() {
     return {
       error_message: '',

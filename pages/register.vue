@@ -32,6 +32,9 @@
 <script>
 export default ({
   middleware: ['unauthenticated'],
+  head:{
+    title: 'Logout'
+  },
   data() {
     return {
       emailExist: false,

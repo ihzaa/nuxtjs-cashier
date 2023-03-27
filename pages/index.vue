@@ -13,6 +13,9 @@
 export default {
   middleware: ['authenticated'],
   name: 'IndexPage',
+  head:{
+    title: 'App'
+  }
 }
 </script>
 

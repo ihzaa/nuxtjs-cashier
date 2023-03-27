@@ -38,6 +38,9 @@
 <script>
 export default ({
   middleware: ['authenticated'],
+  head:{
+    title: 'Create User'
+  },
   data() {
     return {
       error_message: '',

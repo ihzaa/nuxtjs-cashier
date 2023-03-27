@@ -52,6 +52,9 @@
 
 export default {
   middleware: ['authenticated'],
+  head:{
+    title: 'User'
+  },
   data() {
     return {
       dialogDelete: false,
