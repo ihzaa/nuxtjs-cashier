@@ -51,6 +51,7 @@
 <script>
 
 export default {
+  middleware: ['authenticated'],
   data() {
     return {
       dialogDelete: false,

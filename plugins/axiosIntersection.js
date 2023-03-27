@@ -1,4 +1,4 @@
-export default function ({ $axios, $axiosAuth, store }) {
+export default function ({ $axios, $axiosAuth, store, $i18n }) {
   $axios.onRequest(config => {
     if (store.getters['auth/authenticated']) {
       config.headers['x-access-token'] = store.state.auth.access_token;
@@ -18,6 +18,10 @@ export default function ({ $axios, $axiosAuth, store }) {
 
           return $axios(originalRequest);
 
+        })
+        .catch(error => {
+          store.commit('auth/logout');
+          window.location.href = "/login";
         })
     }
   })
